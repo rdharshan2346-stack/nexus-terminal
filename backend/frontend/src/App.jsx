@@ -107,7 +107,7 @@ function App() {
   // EFFECT 2: WEBSOCKET MASTER DATA LOOP
   // ==========================================
   useEffect(() => {
-    const ws = new WebSocket('ws://127.0.0.1:8000/stream');
+    const ws = new WebSocket('wss://nexus-terminal-engine.onrender.com/stream');
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
 
@@ -142,7 +142,7 @@ function App() {
   useEffect(() => {
     const loadPortfolio = async () => {
       try {
-        const res = await fetch('http://127.0.0.1:8000/api/portfolio');
+        const res = await fetch('https://nexus-terminal-engine.onrender.com/api/portfolio');
         const data = await res.json();
         setPositions(data.trades);
       } catch (e) {
@@ -162,7 +162,7 @@ function App() {
   const fetchRegionalNews = async (region) => {
     setIsNewsLoading(true);
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/news/${region}`);
+      const res = await fetch(`https://nexus-terminal-engine.onrender.com/api/news/${region}`);
       if (!res.ok) throw new Error("Connection failed.");
       const data = await res.json();
       if (!data.news || data.news.length === 0) throw new Error("Empty Array.");
@@ -182,7 +182,7 @@ function App() {
 
   useEffect(() => {
     if (currentWorkspace === 'OPTIONS') {
-      fetch(`http://127.0.0.1:8000/api/options/${ticker}`)
+      fetch(`https://nexus-terminal-engine.onrender.com/api/options/${ticker}`)
         .then(r => r.json())
         .then(data => setOptionsData(data))
         .catch(() => { });
@@ -199,7 +199,7 @@ function App() {
       setPositions(prev => [order, ...prev]);
 
       try {
-        await fetch('http://127.0.0.1:8000/api/trade', {
+        await fetch('https://nexus-terminal-engine.onrender.com/api/trade', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(order)
@@ -213,7 +213,7 @@ function App() {
   const handleExecuteAI = async () => {
     setIsDeploying(true); setReport('');
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/analyze/${ticker}`);
+      const res = await fetch(`https://nexus-terminal-engine.onrender.com/api/analyze/${ticker}`);
       const data = await res.json();
       setReport(data.analysis);
     } catch {
@@ -225,7 +225,7 @@ function App() {
   const handleAlgoDeploy = async () => {
     setIsBuildingAlgo(true); setAlgoResult(null);
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/algo/deploy`, {
+      const res = await fetch(`https://nexus-terminal-engine.onrender.com/api/algo/deploy`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(algoRule)
@@ -243,7 +243,7 @@ function App() {
     setBacktestResults(null);
 
     try {
-      const res = await fetch('http://127.0.0.1:8000/api/backtest', {
+      const res = await fetch('https://nexus-terminal-engine.onrender.com/api/backtest', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ strategy: selectedStrategy, asset: backtestAsset })
@@ -268,7 +268,7 @@ function App() {
     setIsChatLoading(true);
 
     try {
-      const res = await fetch('http://127.0.0.1:8000/api/chat', {
+      const res = await fetch('https://nexus-terminal-engine.onrender.com/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: userMsg.content, history: chatHistory.slice(-6) })
