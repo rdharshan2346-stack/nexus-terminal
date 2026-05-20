@@ -1,0 +1,184 @@
+:root {
+  --bg-color: #000000;
+  --panel-bg: rgba(28, 28, 30, 0.6);
+  --panel-border: rgba(255, 255, 255, 0.08);
+  --text-main: #F2F2F7;
+  --text-muted: #8E8E93;
+  --accent-blue: #0A84FF;
+  --accent-blue-hover: #0066CC;
+  --accent-green: #30D158;
+  --accent-red: #FF453A;
+  --accent-orange: #FF9F0A;
+  --font-system: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-family: var(--font-system);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+/* Custom Ultra-Thin Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.app-container {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  height: 100vh;
+  width: 100vw;
+}
+
+.sidebar {
+  background: rgba(18, 18, 20, 0.8);
+  border-right: 1px solid var(--panel-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 0;
+  gap: 28px;
+  backdrop-filter: blur(20px);
+  z-index: 50;
+}
+
+.sidebar-icon {
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.sidebar-icon:hover {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
+}
+
+.sidebar-icon.active {
+  color: var(--accent-blue);
+  background: rgba(10, 132, 255, 0.15);
+  box-shadow: 0 0 15px rgba(10, 132, 255, 0.2);
+}
+
+.main-content {
+  padding: 30px 40px;
+  overflow-y: auto;
+  height: calc(100vh - 60px);
+  position: relative;
+}
+
+.glass-panel {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 16px;
+  padding: 24px;
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-panel:hover {
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
+}
+
+.premium-input {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--panel-border);
+  color: var(--text-main);
+  padding: 12px 16px;
+  border-radius: 10px;
+  outline: none;
+  font-family: var(--font-system);
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.premium-input:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.2);
+}
+
+.premium-button {
+  background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-blue-hover) 100%);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  font-family: var(--font-system);
+  letter-spacing: 0.5px;
+}
+
+.premium-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(10, 132, 255, 0.4);
+}
+
+.premium-button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.premium-button:disabled {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.live-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent-green);
+  border-radius: 50%;
+  margin-left: 8px;
+  box-shadow: 0 0 8px var(--accent-green);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(48, 209, 88, 0.7);
+  }
+
+  70% {
+    box-shadow: 0 0 0 6px rgba(48, 209, 88, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(48, 209, 88, 0);
+  }
+}
+
+/* Custom Tooltip Styling for Recharts */
+.custom-tooltip {
+  background: rgba(20, 20, 22, 0.95);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+}
